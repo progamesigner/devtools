@@ -1,16 +1,14 @@
 # devtools
 
-Built on [progamesigner/devcontainers](https://github.com/progamesigner/devcontainers).
-
 ## With Docker
 
 - Container's Network Namespace
 
-    `docker run -it --net container:<container_name> progamesigner/devtools`
+    `docker run -it --net container:<container_name> ghcr.io/progamesigner/devtools`
 
 - Host's Network Namespace
 
-    `docker run -it --net host progamesigner/devtools`
+    `docker run -it --net host ghcr.io/progamesigner/devtools`
 
 ## With Docker Compose
 
@@ -18,7 +16,7 @@ Built on [progamesigner/devcontainers](https://github.com/progamesigner/devconta
 version: '3.6'
 services:
   tcpdump:
-    image: progamesigner/devtools
+    image: ghcr.io/progamesigner/devtools
     depends_on:
     - nginx
     command: tcpdump -i eth0 -w /data/nginx.pcap
@@ -36,14 +34,14 @@ services:
 
  - Use [ephemeral container](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container-example)
 
-    `kubectl debug -it --image=progamesigner/devtools --target=<pod>`
+    `kubectl debug -it --image=ghcr.io/progamesigner/devtools --target=<pod>`
 
  - Use pod
 
-    `kubectl run debug --rm -it --image=progamesigner/devtools`
+    `kubectl run debug --rm -it --image=ghcr.io/progamesigner/devtools`
 
  - Use pod with host network
 
-    `kubectl run debug --rm -it --overrides='{"spec": {"hostNetwork": true}}' --image=progamesigner/devtools`
+    `kubectl run debug --rm -it --overrides='{"spec": {"hostNetwork": true}}' --image=ghcr.io/progamesigner/devtools`
 
  - Use sidecar container
