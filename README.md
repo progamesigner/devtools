@@ -45,3 +45,55 @@ services:
     `kubectl run debug --rm -it --overrides='{"spec": {"hostNetwork": true}}' --image=ghcr.io/progamesigner/devtools`
 
  - Use sidecar container
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: devtools
+  name: devtools
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devtools
+  template:
+    metadata:
+      labels:
+        app: devtools
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:stable
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+      - name: devtools
+        image: ghcr.io/progamesigner/devtools:latest
+        command:
+        - sh
+        - -c
+        - while true; do ping localhost; sleep 60; done
+```
+
+ - Use pod
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: devtools
+  name: devtools
+spec:
+  containers:
+  - name: devtools
+    image: ghcr.io/progamesigner/devtools:latest
+    command:
+    - sh
+    - -c
+    - while true; do ping localhost; sleep 60; done
+```
