@@ -6,15 +6,16 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
  && apt-get install --yes --no-install-recommends \
-       build-essential \
-       ca-certificates \
-       curl \
-       git \
-       jq \
-       pipx \
-       python3 \
-       python3-pip \
-       sudo \
+        build-essential \
+        ca-certificates \
+        curl \
+        git \
+        jq \
+        pipx \
+        python3 \
+        python3-pip \
+        sudo \
+        tini \
  && rm -rf /var/lib/apt/lists/*
 
 COPY --chmod=0755 --chown=ubuntu:ubuntu docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
@@ -32,6 +33,6 @@ WORKDIR /workspace
 
 VOLUME ["/workspace", "/home/ubuntu/.claude"]
 
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "-g", "--", "/usr/local/bin/docker-entrypoint.sh"]
 
 CMD ["claude", "--remote-control"]
