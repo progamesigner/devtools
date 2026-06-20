@@ -34,3 +34,19 @@ jobs:
           org.opencontainers.image.version=${{ github.sha }}
         push: true
         tags: ghcr.io/${{ github.repository }}:latest
+    - uses: docker/build-push-action@v7
+      with:
+        context: "{{defaultContext}}:claude-code"
+        labels: |
+          org.opencontainers.image.authors=Yang Sheng Han <progamesigner@gmail.com>
+          org.opencontainers.image.created=${{ env.IMAGE_CREATED }}
+          org.opencontainers.image.description=claude-code
+          org.opencontainers.image.documentation=https://github.com/${{ github.repository }}
+          org.opencontainers.image.revision=${{ github.sha }}
+          org.opencontainers.image.source=https://github.com/${{ github.repository }}
+          org.opencontainers.image.title=claude-code
+          org.opencontainers.image.url=https://github.com/${{ github.repository }}
+          org.opencontainers.image.vendor=https://github.com/${{ github.repository }}
+          org.opencontainers.image.version=${{ github.sha }}
+        push: true
+        tags: ghcr.io/${{ github.repository }}/claude-code:latest
