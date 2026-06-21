@@ -1,4 +1,4 @@
-name: Release devtools image
+name: CI
 
 on:
   push:
@@ -6,6 +6,12 @@ on:
     - master
 
   workflow_dispatch:
+
+env:
+  ALPINE_VERSION: "3.24.0"
+  BUN_VERSION: "1.3.14"
+  UBUNTU_VERSION: "26.04"
+  UV_VERSION: "0.11.23"
 
 jobs:
   release:
@@ -36,6 +42,8 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         tags: ghcr.io/${{ github.repository }}:latest
+        build-args: |
+          ALPINE_VERSION=${{ env.ALPINE_VERSION }}
     - uses: docker/build-push-action@v7
       with:
         context: "{{defaultContext}}:claude-code"
@@ -53,3 +61,7 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         tags: ghcr.io/${{ github.repository }}/claude-code:latest
+        build-args: |
+          BUN_VERSION=${{ env.BUN_VERSION }}
+          UBUNTU_VERSION=${{ env.UBUNTU_VERSION }}
+          UV_VERSION=${{ env.UV_VERSION }}

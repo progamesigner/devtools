@@ -1,6 +1,13 @@
 # syntax=docker/dockerfile:1
 
-FROM ubuntu:26.04
+ARG BUN_VERSION=latest
+ARG UBUNTU_VERSION=latest
+ARG UV_VERSION=latest
+
+FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv
+FROM oven/bun:${BUN_VERSION} AS bun
+
+FROM ubuntu:${UBUNTU_VERSION} AS base
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -19,8 +26,8 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 COPY --chmod=0755 --chown=ubuntu:ubuntu docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/local/bin/
-COPY --from=oven/bun:latest /usr/local/bin/bun /usr/local/bin/
+COPY --from=uv /uv /uvx /usr/local/bin/
+COPY --from=bun /usr/local/bin/bun /usr/local/bin/
 
 RUN mkdir -p /home/ubuntu/.claude \
  && chown -R ubuntu:ubuntu /home/ubuntu/.claude
