@@ -10,6 +10,7 @@ on:
 env:
   ALPINE_VERSION: "3.24.0"
   BUN_VERSION: "1.3.14"
+  GH_VERSION: "2.95.0"
   UBUNTU_VERSION: "26.04"
   UV_VERSION: "0.11.23"
 
@@ -62,6 +63,8 @@ jobs:
         push: true
         tags: ghcr.io/${{ github.repository }}/claude-code:latest
         build-args: |
+          ALPINE_VERSION=${{ env.ALPINE_VERSION }}
           BUN_VERSION=${{ env.BUN_VERSION }}
+          GH_VERSION=${{ env.GH_VERSION }}
           UBUNTU_VERSION=${{ env.UBUNTU_VERSION }}
           UV_VERSION=${{ env.UV_VERSION }}
