@@ -15,4 +15,8 @@ curl -fsSL https://chatgpt.com/codex/install.sh | sh
 
 echo "Installed Codex version: $(codex --version)"
 
-exec "$@"
+if [ "$#" -eq 0 ]; then
+    exec codex remote-control
+else
+    exec "$@"
+fi

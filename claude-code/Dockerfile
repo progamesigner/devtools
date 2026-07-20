@@ -66,5 +66,3 @@ WORKDIR /workspace
 VOLUME ["/workspace", "/home/ubuntu/.claude"]
 
 ENTRYPOINT ["/usr/bin/tini", "-g", "--", "/usr/local/bin/docker-entrypoint.sh"]
-
-CMD ["claude", "--remote-control"]

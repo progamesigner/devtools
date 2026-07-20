@@ -67,5 +67,3 @@ WORKDIR /workspace
 VOLUME ["/workspace", "/home/ubuntu/.codex"]
 
 ENTRYPOINT ["/usr/bin/tini", "-g", "--", "/usr/local/bin/docker-entrypoint.sh"]
-
-CMD ["codex", "remote-control"]

@@ -14,4 +14,8 @@ curl -fsSL https://claude.ai/install.sh | bash
 
 echo "Installed Claude Code version: $(claude --version)"
 
-exec "$@"
+if [ "$#" -eq 0 ]; then
+    exec claude remote-control --name "${CLAUDE_NAME:-default}" --spawn=same-dir --no-create-session-in-dir
+else
+    exec "$@"
+fi
