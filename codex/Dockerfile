@@ -37,6 +37,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
  && apt-get install --yes --no-install-recommends \
+        bubblewrap \
         build-essential \
         ca-certificates \
         curl \
