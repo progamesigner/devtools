@@ -47,6 +47,7 @@ jobs:
         tags: ghcr.io/${{ github.repository }}:latest
         build-args: |
           ALPINE_VERSION=${{ env.ALPINE_VERSION }}
+
     - uses: docker/build-push-action@v7
       with:
         context: "{{defaultContext}}:claude-code"
@@ -64,6 +65,32 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         tags: ghcr.io/${{ github.repository }}/claude-code:latest
+        build-args: |
+          ALPINE_VERSION=${{ env.ALPINE_VERSION }}
+          BUN_VERSION=${{ env.BUN_VERSION }}
+          GH_VERSION=${{ env.GH_VERSION }}
+          JQ_VERSION=${{ env.JQ_VERSION }}
+          TINI_VERSION=${{ env.TINI_VERSION }}
+          UBUNTU_VERSION=${{ env.UBUNTU_VERSION }}
+          UV_VERSION=${{ env.UV_VERSION }}
+
+    - uses: docker/build-push-action@v7
+      with:
+        context: "{{defaultContext}}:codex"
+        labels: |
+          org.opencontainers.image.authors=Yang Sheng Han <progamesigner@gmail.com>
+          org.opencontainers.image.created=${{ env.IMAGE_CREATED }}
+          org.opencontainers.image.description=codex
+          org.opencontainers.image.documentation=https://github.com/${{ github.repository }}
+          org.opencontainers.image.revision=${{ github.sha }}
+          org.opencontainers.image.source=https://github.com/${{ github.repository }}
+          org.opencontainers.image.title=codex
+          org.opencontainers.image.url=https://github.com/${{ github.repository }}
+          org.opencontainers.image.vendor=https://github.com/${{ github.repository }}
+          org.opencontainers.image.version=${{ github.sha }}
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: ghcr.io/${{ github.repository }}/codex:latest
         build-args: |
           ALPINE_VERSION=${{ env.ALPINE_VERSION }}
           BUN_VERSION=${{ env.BUN_VERSION }}

@@ -9,7 +9,7 @@ if [ -d $HOME/.claude ]; then
     ln -sf $HOME/.claude/.claude.json $HOME/.claude.json
 fi
 
-echo "Installing / Updating Claude Code..."
+echo "Installing / Updating Claude Code ..."
 curl -fsSL https://claude.ai/install.sh | bash
 
 echo "Installed Claude Code version: $(claude --version)"
