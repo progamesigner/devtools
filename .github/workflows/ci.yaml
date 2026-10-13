@@ -7,6 +7,9 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 env:
   ALPINE_VERSION: "3.24.0"
   BUN_VERSION: "1.3.14"
@@ -18,6 +21,9 @@ env:
 
 jobs:
   release:
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
     steps:
     - run: |
